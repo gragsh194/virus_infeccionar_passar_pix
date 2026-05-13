@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aviso do Sistema</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .alert-box {
+            background-color: #333333;
+            border-radius: 14px;
+            padding: 20px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #ff4a4a;
+        }
+        p {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.4;
+        }
+        .btn {
+            background-color: #007fffff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+            outline: none;
+        }
+        .btn:active {
+            background-color: #0056b3;
+        }
+        @keyframes pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="alert-box" id="box">
+        <h2 id="title">⚠️ ALERTA CRÍTICO</h2>
+        <p id="text">Detectamos que este celular está tentando trabalhar demais. Iniciando protocolo de autodestruição da bateria em 5 segundos...</p>
+        <button class="btn" onclick="proximoPasso()" id="btn-text">CANCELAR</button>
+    </div>
+
+    <script>
+        let passo = 0;
+        const titulo = document.getElementById('title');
+        const texto = document.getElementById('text');
+        const botao = document.getElementById('btn-text');
+        const box = document.getElementById('box');
+
+        const mensagens = [
+            { t: "❌ ERRO", p: "Não foi possível cancelar. O vírus 'Curioso_V1' já assumiu o controle da sua câmera frontal. Sorria!", b: "OK, PERDÃO" },
+            { t: "🤖 GOOGLE AVISA:", p: "Identificamos que o dono deste celular não lava as mãos antes de mexer no touch. Iniciando limpeza ultrassônica na tela...", b: "ATIVAR LIMPEZA" },
+            { t: "💸 SISTEMA FINANCEIRO", p: "Para desbloquear o celular, faça um Pix de R$ 0,50 para o amigo que te mandou este link, ou sua galeria de fotos será enviada para o grupo da família.", b: "PROMETO FAZER" },
+            { t: "📱 STATUS:", p: "Brincadeira! 😜 Seu celular está 100% seguro. Pode fechar a aba e respirar fundo!", b: "FECHAR BRINCADEIRA" }
+        ];
+
+        function proximoPasso() {
+            if (passo < mensagens.length) {
+                // Efeito visual de tremor ao mudar de mensagem
+                box.style.animation = 'none';
+                box.offsetHeight; // Truque para resetar a animação
+                box.style.animation = 'pop 0.3s ease';
+
+                titulo.innerText = mensagens[passo].t;
+                texto.innerText = mensagens[passo].p;
+                botao.innerText = mensagens[passo].b;
+                
+                // Muda a cor do botão no aviso do Pix
+                if(passo === 2) {
+                    botao.style.backgroundColor = #25D366; // Verde WhatsApp
+                } else if (passo === 3) {
+                    botao.style.backgroundColor = #007fffff;
+                    titulo.style.color = #25D366;
+                }
+                
+                passo++;
+            } else {
+                // Fim da brincadeira, tenta fechar ou avisa
+                alert("Valeu por cair na pegadinha! Agora manda pro próximo.");
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>
